@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tư Vấn Setup Phòng Live Miễn Phí - Trường Ánh Sáng</title>
+    <!-- Google Fonts: Roboto -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <!-- FontAwesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #00ff87; /* Xanh lục neon công nghệ */
+            --primary-hover: #00cc6a;
+            --secondary-color: #0f172a; 
+            --bg-dark: #070b14; /* Nền tối sâu cho phong cách tech */
+            --text-main: #e2e8f0;
+            --text-light: #ffffff;
+            --accent-color: #f59e0b;
+            --card-bg: rgba(15, 23, 42, 0.65); /* Nền trong suốt glassmorphism */
+            --card-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-family: 'Roboto', sans-serif;
+            color: var(--text-main);
+            background-color: var(--bg-dark);
+        }
+
+        /* --- NỀN CÔNG NGHỆ BẰNG CSS (TECH BACKGROUND) --- */
+        body {
+            overflow-x: hidden;
+            line-height: 1.6;
+            position: relative;
+        }
+
+        /* Hiệu ứng nền 1: Lưới công nghệ cuộn vô tận (Đã tăng sáng 10% và tăng tốc để thấy rõ chuyển động) */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background-image: 
+                linear-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: -2;
+            pointer-events: none;
+            animation: panGrid 1.5s linear infinite;
+        }
+
+        @keyframes panGrid {
+            0% { background-position: 0px 0px; }
+            100% { background-position: 40px 40px; }
+        }
+
+        /* Hiệu ứng nền 2: Ánh sáng trôi bồng bềnh (Đã tăng cường độ sáng rõ rệt) */
+        body::after {
+            content: "";
+            position: fixed;
+            top: 0; left: 0; width: 100vw; height: 100vh;
+            background: linear-gradient(
+                120deg, 
+                rgba(0, 255, 135, 0.25) 0%, 
+                rgba(7, 11, 20, 0) 35%, 
+                rgba(7, 11, 20, 0) 65%, 
+                rgba(245, 158, 11, 0.15) 100%
+            );
+            background-size: 300% 300%;
+            z-index: -1;
+            pointer-events: none;
+            animation: floatLight 5s ease infinite;
+        }
+
+        @keyframes floatLight {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Lớp phủ họa tiết cho các section đỡ trống */
+        .section-bg-pattern {
+            position: relative;
+        }
+        .section-bg-pattern::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: repeating-linear-gradient(
+                -45deg,
+                rgba(255, 255, 255, 0.01),
+                rgba(255, 255, 255, 0.01) 2px,
+                transparent 2px,
+                transparent 10px
+            );
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        /* Navigation Bar */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(7, 11, 20, 0.85);
+            backdrop-filter: blur(12px);
+            z-index: 1000;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 900;
+            color: var(--text-light);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+
+        .logo span {
+            color: var(--primary-color);
+            text-shadow: 0 0 10px rgba(0, 255, 135, 0.4);
+        }
+
+        .nav-cta {
+            background: transparent;
+            color: var(--primary-color);
+            padding: 10px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 14px;
+            text-transform: uppercase;
+            border: 2px solid var(--primary-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(0, 255, 135, 0.1);
+        }
+
+        .nav-cta:hover {
+            background: var(--primary-color);
+            color: #000;
+            box-shadow: 0 0 20px rgba(0, 255, 135, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* Section Layouts */
+        section {
+            padding: 120px 40px 100px 40px;
+            max-width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .container {
+            max-width: 1400px;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+
+        /* Grid System for Split Content */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        @media (max-width: 1024px) {
+            .grid-2 { grid-template-columns: 1fr; gap: 40px; }
+            section { padding: 90px 20px 60px 20px; }
+            .nav-container { padding: 15px 20px; }
+        }
+
+        /* Headings */
+        .section-tag {
+            text-transform: uppercase;
+            color: var(--primary-color);
+            font-weight: 800;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: rgba(0, 255, 135, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+            border: 1px solid rgba(0, 255, 135, 0.2);
+        }
+
+        .section-title {
+            font-size: 40px;
+            font-weight: 900;
+            color: var(--text-light);
+            line-height: 1.25;
+            margin-bottom: 25px;
+            text-transform: capitalize;
+        }
+
+        .section-title span {
+            color: var(--primary-color);
+            text-shadow: 0 0 20px rgba(0, 255, 135, 0.3);
+        }
+
+        .section-desc {
+            font-size: 18px;
+            color: #94a3b8;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+
+        /* Call To Action Button */
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--primary-color);
+            color: #022c22;
+            padding: 18px 40px;
+            font-size: 18px;
+            font-weight: 800;
+            text-decoration: none;
+            text-transform: uppercase;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 255, 135, 0.25);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            width: fit-content;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .cta-btn:hover {
+            transform: scale(1.05) translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 255, 135, 0.4);
+            background: #ffffff;
+            color: #000;
+        }
+
+        /* Media Box Styling (Glassmorphism) */
+        .media-box {
+            position: relative;
+            width: 100%;
+            padding-top: 56.25%; /* 16:9 Aspect Ratio */
+            background: #000000;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
+            border: 1px solid var(--card-border);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .media-box::before {
+            content: "KHU VỰC VIDEO/HÌNH ẢNH SẢN PHẨM";
+            position: absolute;
+            top: 50%; left: 50%;
+            transform: translate(-50%, -50%);
+            color: #475569;
+            font-weight: 600;
+            letter-spacing: 2px;
+            z-index: 0;
+        }
+
+        .media-box:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 255, 135, 0.15);
+            border-color: rgba(0, 255, 135, 0.4);
+        }
+
+        .media-box iframe, .media-box img, .media-box video {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            border: 0; object-fit: cover;
+            z-index: 1;
+        }
+
+        /* Card Layouts */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            padding: 40px 35px;
+            border-radius: 20px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            border: 1px solid var(--card-border);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; width: 4px; height: 100%;
+            background: var(--primary-color);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            box-shadow: 0 0 15px var(--primary-color);
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            background: rgba(30, 41, 59, 0.8);
+            border-color: rgba(0, 255, 135, 0.3);
+        }
+
+        .card:hover::before { opacity: 1; }
+
+        .card-icon {
+            width: 60px; height: 60px;
+            border-radius: 16px;
+            background: rgba(0, 255, 135, 0.1);
+            color: var(--primary-color);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 26px; margin-bottom: 25px;
+            border: 1px solid rgba(0, 255, 135, 0.2);
+        }
+
+        .card-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        /* --- TĂNG SÁNG NỀN CHO KHUNG 2 (Features) VÀ KHUNG 4 (Target Audience) --- */
+        #features, #target-audience {
+            background: radial-gradient(circle at 50% 50%, rgba(30, 41, 59, 0.95) 0%, rgba(7, 11, 20, 0.95) 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: inset 0 0 80px rgba(0, 255, 135, 0.03);
+        }
+
+        #features .card, #target-audience .card {
+            background: rgba(30, 41, 59, 0.85); 
+        }
+
+        /* Hero Section */
+        #hero {
+            min-height: 100vh;
+            padding-top: 150px;
+            background: radial-gradient(circle at 50% 50%, rgba(15, 23, 42, 0) 0%, #070b14 100%);
+        }
+
+        #hero .section-title { font-size: 52px; }
+        #hero .section-desc { font-size: 20px; max-width: 90%; }
+
+        /* List Styling */
+        .custom-list { list-style: none; margin-bottom: 40px; }
+
+        .custom-list li {
+            position: relative;
+            padding-left: 45px;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: 400;
+            color: #cbd5e1;
+        }
+
+        .custom-list li i {
+            position: absolute;
+            left: 0; top: 2px;
+            color: var(--primary-color);
+            font-size: 24px;
+            filter: drop-shadow(0 0 8px rgba(0, 255, 135, 0.5));
+        }
+
+        /* Steps Layout */
+        .steps-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px; margin-bottom: 50px;
+        }
+
+        .step-card {
+            text-align: center;
+            padding: 40px 30px;
+            background: var(--card-bg);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--card-border);
+            border-radius: 20px;
+            position: relative;
+            transition: transform 0.3s ease;
+        }
+        
+        .step-card:hover { transform: translateY(-5px); border-color: var(--primary-color); }
+
+        .step-num {
+            width: 50px; height: 50px;
+            background: transparent;
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-weight: 900; font-size: 22px;
+            margin: 0 auto 25px auto;
+            box-shadow: 0 0 20px rgba(0, 255, 135, 0.2) inset;
+        }
+
+        /* Form Layout Update */
+        .form-container {
+            background: rgba(15, 23, 42, 0.8);
+            backdrop-filter: blur(20px);
+            padding: 50px;
+            border-radius: 24px;
+            border: 1px solid rgba(0, 255, 135, 0.3);
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6), inset 0 0 40px rgba(0,255,135,0.05);
+        }
+
+        .form-container input, .form-container select {
+            width: 100%; padding: 16px; border-radius: 12px;
+            border: 1px solid #334155; background: rgba(0,0,0,0.3);
+            color: white; font-size: 16px; transition: border 0.3s;
+        }
+        
+        .form-container input:focus, .form-container select:focus {
+            outline: none; border-color: var(--primary-color);
+            box-shadow: 0 0 10px rgba(0,255,135,0.2);
+        }
+
+        .footer {
+            background: #02040a;
+            color: #64748b; padding: 60px 40px; text-align: center;
+            border-top: 1px solid #1e293b;
+        }
+
+        .footer-brand { color: white; font-weight: 900; font-size: 20px; margin-bottom: 15px; letter-spacing: 1px; }
+
+        /* Animation */
+        .fade-in {
+            opacity: 0; transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1);
+        }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <div class="nav-container">
+            <div class="logo">Trường <span>Ánh Sáng</span></div>
+            <a href="#register" class="nav-cta">Tư Vấn Free Ngay</a>
+        </div>
+    </nav>
+
+    <!-- SECTION 0: HERO -->
+    <section id="hero" class="section-bg-pattern">
+        <div class="container grid-2">
+            <div class="fade-in">
+                <span class="section-tag">Đột Phá Hình Ảnh Livestream</span>
+                <h1 class="section-title">Bùng Nổ Doanh Số Với Góc Quay <span>Chuẩn Studio</span></h1>
+                <p class="section-desc">Bạn muốn sở hữu không gian livestream thu hút triệu view, ánh sáng chuẩn xác giúp nổi bật chi tiết sản phẩm? Hãy để đội ngũ thực chiến thiết kế giải pháp công nghệ cho bạn.</p>
+                
+                <ul class="custom-list">
+                    <li><i class="fa-solid fa-microchip"></i> Ứng dụng kỹ thuật chiếu sáng hiện đại, tối ưu màu sắc tự nhiên.</li>
+                    <li><i class="fa-solid fa-layer-group"></i> Làm chủ mọi không gian từ phòng ngủ đến studio lớn đa nền tảng.</li>
+                    <li><i class="fa-solid fa-bolt"></i> Tặng ngay giải pháp tận dụng thiết bị có sẵn hoàn toàn miễn phí.</li>
+                </ul>
+
+                <a href="#register" class="cta-btn">
+                    <i class="fa-solid fa-power-off"></i> Đăng ký tư vấn setup live free
+                </a>
+            </div>
+            
+            <div class="fade-in">
+                <div class="media-box">
+                    <video controls autoplay muted loop>
+                        <source src="video1.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 1: Tính năng công dụng của setup ánh sáng -->
+    <section id="features">
+        <div class="container grid-2">
+            <div class="fade-in">
+                <div class="media-box">
+                    <video controls autoplay muted loop>
+                        <source src="video2.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+
+            <div class="fade-in">
+                <span class="section-tag">Bí Quyết Triệu View</span>
+                <h2 class="section-title">Sức Mạnh Tuyệt Đối Của <span>Setup Ánh Sáng</span></h2>
+                <p class="section-desc">Ánh sáng chiếm 80% chất lượng của video hoặc livestream. Thiết lập nhiệt độ màu chuẩn xác giúp nâng tầm hình ảnh ngay lập tức.</p>
+                
+                <div class="card-grid" style="grid-template-columns: 1fr;">
+                    <div class="card">
+                        <div class="card-icon"><i class="fa-solid fa-eye"></i></div>
+                        <div class="card-title">Tôn vinh sản phẩm chân thực</div>
+                        <p class="card-desc" style="color: #cbd5e1; font-size: 16px;">Sử dụng công nghệ hoàn màu cao giúp da sáng mịn tự nhiên, giữ nguyên bản chất màu sắc sản phẩm, tạo độ sâu điện ảnh thu hút mắt người xem.</p>
+                    </div>
+                    <div class="card">
+                        <div class="card-icon"><i class="fa-solid fa-chart-line"></i></div>
+                        <div class="card-title">Tối đa thời gian giữ chân</div>
+                        <p class="card-desc" style="color: #cbd5e1; font-size: 16px;">Góc ánh sáng dễ chịu, không gắt mắt tạo cảm giác uy tín, chuyên nghiệp. Tăng tỷ lệ chốt đơn và chuyển đổi tự nhiên qua mỗi phiên live.</p>
+                    </div>
+                </div>
+
+                <a href="#register" class="cta-btn">
+                    <i class="fa-solid fa-download"></i> Nhận Mẫu Setup Ánh Sáng Free
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 2: Lý do nên chọn tư vấn setup -->
+    <section id="why-choose-us" class="section-bg-pattern">
+        <div class="container">
+            <div class="fade-in" style="text-align: center; max-width: 900px; margin: 0 auto;">
+                <span class="section-tag">Vì Sao Nên Bắt Đầu Ngay?</span>
+                <h2 class="section-title">Lợi Thế Kỹ Thuật Từ <span>Đội Ngũ Thực Chiến</span></h2>
+                <p class="section-desc">Đừng lãng phí hàng chục triệu đồng mua sai thiết bị ánh sáng. Chúng tôi mang lại cho bạn lộ trình tối ưu và chính xác nhất cho từng không gian.</p>
+            </div>
+
+            <div class="grid-2" style="margin-top: 30px;">
+                <div class="fade-in">
+                    <div class="card-grid" style="grid-template-columns: 1fr 1fr;">
+                        <div class="card" style="padding: 30px 25px;">
+                            <div class="card-icon"><i class="fa-solid fa-code-branch"></i></div>
+                            <div class="card-title" style="font-size: 18px;">Kinh Nghiệm 5+ Năm</div>
+                            <p class="card-desc" style="font-size: 15px; color: #94a3b8;">Đội ngũ chuyên gia thực chiến qua hàng trăm dự án KOC/KOL và studio lớn nhỏ.</p>
+                        </div>
+                        <div class="card" style="padding: 30px 25px;">
+                            <div class="card-icon"><i class="fa-solid fa-mobile-screen"></i></div>
+                            <div class="card-title" style="font-size: 18px;">Đa Nền Tảng</div>
+                            <p class="card-desc" style="font-size: 15px; color: #94a3b8;">Tối ưu thông số kỹ thuật chuẩn cho hệ sinh thái YouTube, TikTok, Facebook, Website.</p>
+                        </div>
+                        <div class="card" style="padding: 30px 25px;">
+                            <div class="card-icon"><i class="fa-solid fa-video"></i></div>
+                            <div class="card-title" style="font-size: 18px;">Góc Máy Hoàn Hảo</div>
+                            <p class="card-desc" style="font-size: 15px; color: #94a3b8;">Xử lý góc quay, đánh sáng nền triệt để phù hợp với từng loại không gian dù là nhỏ nhất.</p>
+                        </div>
+                        <div class="card" style="padding: 30px 25px;">
+                            <div class="card-icon"><i class="fa-solid fa-network-wired"></i></div>
+                            <div class="card-title" style="font-size: 18px;">Lộ Trình Tối Ưu</div>
+                            <p class="card-desc" style="font-size: 15px; color: #94a3b8;">Đi từ cấu hình cơ bản, nâng cấp dần đến xây dựng hệ thống livestream vận hành bài bản.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <div class="media-box">
+                        <video controls autoplay muted loop>
+                            <source src="video3.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                    <div style="margin-top: 40px; text-align: center;">
+                        <a href="#register" class="cta-btn">
+                            <i class="fa-solid fa-satellite-dish"></i> Đăng Ký Tư Vấn Cùng Chuyên Gia
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 3: AI nên lựa chọn sản phẩm này -->
+    <section id="target-audience">
+        <div class="container">
+            <div class="fade-in" style="text-align: center; max-width: 900px; margin: 0 auto 40px auto;">
+                <span class="section-tag">Giải Pháp Dành Cho Ai?</span>
+                <h2 class="section-title">Hệ Sinh Thái Setup Cho <span>Mọi Nhu Cầu</span></h2>
+                <p class="section-desc">Chỉ cần bạn có sản phẩm cần tiếp cận khách hàng trực tuyến, chúng tôi sẽ thiết lập luồng hiển thị tốt nhất dành riêng cho bạn.</p>
+            </div>
+
+            <div class="grid-2">
+                <div class="fade-in">
+                    <div class="media-box" style="height: 100%; min-height: 400px;">
+                        <video controls autoplay muted loop>
+                            <source src="video4.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <div class="fade-in">
+                    <ul class="custom-list">
+                        <li><i class="fa-solid fa-store"></i> <strong>Người kinh doanh online:</strong> Đột phá doanh thu từ góc quay livestream chuyên nghiệp, rõ nét sản phẩm.</li>
+                        <li><i class="fa-solid fa-clapperboard"></i> <strong>Creators & KOLs:</strong> Cải thiện hệ thống hình ảnh để nội dung trên TikTok, YouTube thu hút thuật toán.</li>
+                        <li><i class="fa-solid fa-laptop-house"></i> <strong>Dân văn phòng & Mẹ bỉm:</strong> Xây dựng góc làm việc/livestream tại nhà gọn gàng để tạo thêm nguồn thu nhập.</li>
+                        <li><i class="fa-solid fa-rocket"></i> <strong>Người chuyển hướng số:</strong> Muốn xây dựng mô hình kiếm tiền online bền vững với nền tảng kỹ thuật vững chắc.</li>
+                    </ul>
+
+                    <div style="margin-top: 30px;">
+                        <a href="#register" class="cta-btn">
+                            <i class="fa-solid fa-crosshairs"></i> Xem Cấu Hình Phù Hợp Với Bạn Ngay
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 4: Cách mua hàng / đăng ký nhanh chóng -->
+    <section id="how-to-buy" class="section-bg-pattern">
+        <div class="container grid-2">
+            <div class="fade-in">
+                <span class="section-tag">Quy Trình Siêu Tốc</span>
+                <h2 class="section-title">3 Bước Đăng Ký <span>Triển Khai Ngay</span></h2>
+                <p class="section-desc">Không rườm rà, thiết lập hệ thống ánh sáng chuyên dụng cho phòng livestream của bạn chỉ trong vài bước kết nối.</p>
+                
+                <div class="steps-container">
+                    <div class="step-card">
+                        <div class="step-num">1</div>
+                        <div class="card-title">Gửi Yêu Cầu</div>
+                        <p style="color: #94a3b8; font-size: 15px;">Điền thông tin và nhu cầu vào hệ thống form đăng ký chuẩn hóa bên dưới.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">2</div>
+                        <div class="card-title">Phân Tích Data</div>
+                        <p style="color: #94a3b8; font-size: 15px;">Đội ngũ kỹ thuật phân tích không gian và liên hệ trực tiếp trong 15 phút.</p>
+                    </div>
+                    <div class="step-card">
+                        <div class="step-num">3</div>
+                        <div class="card-title">Xuất Phương Án</div>
+                        <p style="color: #94a3b8; font-size: 15px;">Nhận sơ đồ bố trí đèn công nghệ cao và góc máy tối ưu hoàn toàn miễn phí.</p>
+                    </div>
+                </div>
+
+                <a href="#register" class="cta-btn">
+                    <i class="fa-solid fa-bolt"></i> BẮT ĐẦU QUY TRÌNH SETUP TẬN TÌNH NGAY
+                </a>
+            </div>
+
+            <div class="fade-in">
+                <div class="media-box">
+                    <video controls autoplay muted loop>
+                        <source src="video5.mp4" type="video/mp4">
+                    </video>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION 5: Cam kết sản phẩm & Đăng ký -->
+    <section id="register" style="padding-top: 140px; padding-bottom: 140px;">
+        <div class="container">
+            <div class="fade-in" style="text-align: center; max-width: 900px; margin: 0 auto;">
+                <span class="section-tag" style="background: var(--primary-color); color: #000; font-weight: 900;">Combo Hỗ Trợ Đặc Quyền</span>
+                <h2 class="section-title" style="margin-top: 15px;">Đăng Ký Tư Vấn Setup Ngay <span>Nhận Gói Kỹ Thuật Trị Giá 2 Triệu</span></h2>
+                <p class="section-desc">Cam kết đồng hành 24/7. Tránh sai lầm mua sắm thiết bị và tối ưu hóa chuyển đổi tự nhiên qua chất lượng hình ảnh sắc nét.</p>
+            </div>
+
+            <div class="grid-2" style="margin-top: 40px; align-items: stretch;">
+                
+                <!-- Cột Trái: Cam Kết & Quà Tặng -->
+                <div class="fade-in" style="display: flex; flex-direction: column; justify-content: center; gap: 30px;">
+                    <div class="card" style="border: 1px solid var(--primary-color); box-shadow: 0 0 30px rgba(0, 255, 135, 0.1);">
+                        <div class="card-title" style="color: var(--primary-color); font-size: 24px; display: flex; align-items: center; gap: 10px;">
+                            <i class="fa-solid fa-box-open"></i> GÓI QUÀ TẶNG ĐỘC QUYỀN
+                        </div>
+                        <hr style="margin: 20px 0; border: none; border-top: 1px solid rgba(255,255,255,0.1);">
+                        <ul class="custom-list" style="margin-bottom: 0;">
+                            <li style="font-size: 16px;"><i class="fa-solid fa-check" style="color: var(--primary-color);"></i> Hỗ trợ quy trình setup quay chụp chuẩn hóa bằng điện thoại hoàn toàn <strong>FREE</strong>.</li>
+                            <li style="font-size: 16px;"><i class="fa-solid fa-check" style="color: var(--primary-color);"></i> Chuyên gia đồng hành kỹ thuật trực tiếp trong các phiên live 24/7 suốt 12 tháng.</li>
+                            <li style="font-size: 16px;"><i class="fa-solid fa-check" style="color: var(--primary-color);"></i> Trực tiếp định hướng tạo nội dung thu hút để ra đơn tự nhiên.</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="media-box" style="padding-top: 45%;">
+                        <video controls autoplay muted loop>
+                            <source src="video7.mp4" type="video/mp4">
+                        </video>
+                    </div>
+                </div>
+
+                <!-- Cột Phải: Form Đăng Ký Đã Đồng Bộ API Nhận Dữ Liệu Trang Tính -->
+                <div class="fade-in form-container">
+                    <h3 style="font-size: 28px; font-weight: 800; margin-bottom: 15px; text-align: center; color: white;">Khởi Tạo Dự Án Của Bạn</h3>
+                    <p style="color: #94a3b8; font-size: 16px; text-align: center; margin-bottom: 30px;">Hệ thống sẽ chuyển yêu cầu trực tiếp đến đội ngũ kỹ thuật Trường Ánh Sáng để xử lý trong ngày.</p>
+                    
+                    <form id="registerForm" style="display: flex; flex-direction: column; gap: 20px;">
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1;">Họ và Tên / Tên Thương Hiệu:</label>
+                            <input type="text" name="hoTen" required placeholder="Nhập tên của bạn...">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1;">Số Điện Thoại / Zalo Liên Hệ:</label>
+                            <input type="tel" name="soDienThoai" required placeholder="Nhập số điện thoại...">
+                        </div>
+                        <div>
+                            <label style="display: block; font-size: 14px; font-weight: 600; margin-bottom: 8px; color: #cbd5e1;">Cấu hình nền tảng cần tối ưu:</label>
+                            <select name="nhuCau" required style="cursor: pointer;">
+                                <option value="Tối ưu Livestream Bán Hàng">Tối ưu Livestream & Ánh Sáng Bán Hàng</option>
+                                <option value="Setup Studio YouTube/TikTok">Setup Studio Sản Xuất YouTube / TikTok</option>
+                                <option value="Hệ Thống Quay Di Động">Hệ Thống Quay Phim Bằng Thiết Bị Di Động</option>
+                                <option value="Nâng Cấp Góc Làm Việc">Nâng Cấp Góc Làm Việc Trực Tuyến</option>
+                            </select>
+                        </div>
+                        
+                        <button type="submit" id="submitBtn" class="cta-btn" style="width: 100%; border: none; margin-top: 20px; font-size: 18px;">
+                            <i class="fa-solid fa-satellite-dish"></i> GỬI DỮ LIỆU ĐĂNG KÝ SETUP FREE
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <div class="footer-brand">HỆ THỐNG SETUP LIVESREAM CHUYÊN NGHIỆP TRƯỜNG ÁNH SÁNG</div>
+        <p>Đơn vị đồng hành nâng cấp không gian ánh sáng kỹ thuật cao hàng đầu</p>
+        <p style="margin-top: 20px; font-size: 14px;">&copy; 2026 Trường Ánh Sáng. Toàn bộ nội dung công nghệ được bảo hộ bản quyền.</p>
+    </div>
+
+    <!-- Script Xử Lý Gửi Dữ Liệu Ngầm Lên Google Sheets & Hiệu Ứng Trượt Mượt Mà -->
+    <script>
+        // THAY ĐƯỜNG LINK URL GOOGLE APPS SCRIPT CỦA BẠN VÀO GIỮA HAI DẤU NHÁY ĐƠN DƯỚI ĐÂY:
+        const scriptURL = 'https://script.google.com/macros/s/AKfycby9gXOAk4cxXpuMRt-HC7x6wtWfK2De1wnlGOGN-px-RAhPOyxZBhbQmxChMPdfYODG/exec';
+        
+        const form = document.forms['registerForm'];
+        const btn = document.getElementById('submitBtn');
+
+        if(form) {
+            form.addEventListener('submit', e => {
+                e.preventDefault();
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> ĐANG GỬI DỮ LIỆU...';
+                btn.style.opacity = '0.7';
+                btn.disabled = true;
+
+                fetch(scriptURL, { method: 'POST', body: new FormData(form)})
+                    .then(response => {
+                        alert('Dữ liệu đã được gửi thành công! Em Trường Ánh Sáng sẽ liên hệ lại qua Zalo sớm nhất.');
+                        form.reset();
+                        btn.innerHTML = '<i class="fa-solid fa-check"></i> ĐÃ GỬI THÀNH CÔNG';
+                        btn.style.opacity = '1';
+                        btn.disabled = false;
+                        setTimeout(() => {
+                            btn.innerHTML = '<i class="fa-solid fa-satellite-dish"></i> GỬI DỮ LIỆU ĐĂNG KÝ SETUP FREE';
+                        }, 4000);
+                    })
+                    .catch(error => {
+                        alert('Có lỗi xảy ra trong quá trình truyền dữ liệu, vui lòng thử lại sau!');
+                        console.error('Lỗi API!', error.message);
+                        btn.innerHTML = '<i class="fa-solid fa-rotate-right"></i> THỬ LẠI';
+                        btn.style.opacity = '1';
+                        btn.disabled = false;
+                    });
+            });
+        }
+
+        // Script tạo hiệu ứng xuất hiện khi cuộn chuột mượt mà (Fade In on Scroll)
+        document.addEventListener("DOMContentLoaded", function() {
+            const fadeElements = document.querySelectorAll('.fade-in');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.15, rootMargin: "0px 0px -50px 0px" });
+            fadeElements.forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
